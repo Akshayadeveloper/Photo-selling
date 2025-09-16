@@ -4,581 +4,538 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="A stunning online photo gallery to buy premium and high-resolution photos.">
-    <meta name="keywords" content="photo, gallery, sell photos, high resolution, stock photos, professional photography, AI art, image generation">
-    <title>PhotoVerse - Premium Photography</title>
+    <title>Stunning Photos by Akshaya Voryx CEO</title>
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'primary': '#051834',
+                        'secondary': '#A4C3D5',
+                        'accent': '#F0E6D8',
+                    }
+                }
+            }
+        }
+    </script>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f3f4f6;
-            color: #1f2937;
+            background-color: #f7f3f0;
         }
-        .container {
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 1.5rem;
+        .scroll-to-section {
+            scroll-behavior: smooth;
         }
-        .card {
-            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-            cursor: pointer;
+        .modal {
+            transition: transform 0.3s ease-in-out;
+            transform: translateY(100%);
         }
-        .card:hover {
+        .modal.open {
+            transform: translateY(0);
+        }
+        .modal-background {
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+        }
+        .photo-card {
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .photo-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
         }
-        .scrollable-cart {
-            max-height: 50vh;
-            overflow-y: auto;
-        }
-        .text-overlay {
-            position: absolute;
-            bottom: 1rem;
-            left: 1rem;
-            color: white;
-            font-weight: bold;
-            font-size: 1.2rem;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
-            pointer-events: none;
-            z-index: 10;
-        }
-        .loader {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #6366f1;
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
+            border-left-color: #051834;
+            animation: spin 1s ease infinite;
         }
+
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-        .message-box {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 100;
-            background-color: white;
-            padding: 2rem;
-            border-radius: 0.5rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            text-align: center;
-        }
     </style>
 </head>
-<body>
+<body class="bg-gray-50 text-gray-800">
 
-    <!-- Header Section -->
-    <header class="bg-white shadow-lg py-6 sticky top-0 z-50">
-        <div class="container flex justify-between items-center">
-            <h1 class="text-3xl font-bold text-gray-800 tracking-tight">Photo<span class="text-indigo-600">Verse</span></h1>
-            <nav class="hidden md:flex space-x-6">
-                <a href="#gallery" class="text-gray-600 hover:text-indigo-600 font-medium transition-colors">Gallery</a>
-                <a href="#analyze" class="text-gray-600 hover:text-indigo-600 font-medium transition-colors">Text Analyzer</a>
-                <a href="#about" class="text-gray-600 hover:text-indigo-600 font-medium transition-colors">About</a>
-                <a href="#contact" class="text-gray-600 hover:text-indigo-600 font-medium transition-colors">Contact</a>
-            </nav>
-            <div class="relative">
-                <button id="cart-button" class="bg-indigo-600 text-white p-3 rounded-full hover:bg-indigo-700 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13L10 16h8.5c.673 0 1.155-.386 1.41-1.047L21 9.5M10 21a1 1 0 100-2 1 1 0 000 2zm7 0a1 1 0 100-2 1 1 0 000 2z" />
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-white shadow-sm">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <a href="#" class="text-xl sm:text-2xl font-bold text-primary">Akshaya's Digital Photos</a>
+            <div class="flex items-center space-x-4">
+                <a href="#gallery" class="hidden sm:inline-block text-gray-600 hover:text-primary transition-colors duration-200">Gallery</a>
+                <a href="#contact" class="hidden sm:inline-block text-gray-600 hover:text-primary transition-colors duration-200">Contact</a>
+                <button id="cart-button" class="relative p-2 rounded-full hover:bg-gray-100 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.182 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
                     </svg>
                     <span id="cart-count" class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full">0</span>
                 </button>
             </div>
-        </div>
+        </nav>
     </header>
 
     <!-- Main Content -->
-    <main class="container py-8">
-        <!-- User ID display for collaborative apps -->
-        <div class="text-center mb-6">
-            <p id="user-id" class="text-xs text-gray-500"></p>
-        </div>
+    <main>
+        <!-- Hero Section -->
+        <section class="relative bg-primary text-white py-20 md:py-32 overflow-hidden">
+            <div class="absolute inset-0 bg-cover bg-center opacity-30" style="background-image: url('https://images.unsplash.com/photo-1542662569-f81d89859f9e?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');"></div>
+            <div class="relative container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tight mb-4">
+                    Capture the Moment, Own the Art
+                </h1>
+                <p class="text-lg md:text-xl lg:text-2xl mb-8 opacity-90">
+                    Explore a curated collection of stunning digital photos.
+                </p>
+                <a href="#gallery" class="bg-white text-primary font-bold py-3 px-8 rounded-full shadow-lg hover:bg-gray-200 transition-colors duration-200 inline-block">
+                    Explore Gallery
+                </a>
+            </div>
+        </section>
 
         <!-- Photo Gallery Section -->
-        <section id="gallery" class="mb-12">
-            <h2 class="text-4xl font-extrabold text-center mb-10 text-gray-800">Explore Our Collection</h2>
-            <div id="photo-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-                <!-- Photo Cards will be dynamically added here by JavaScript -->
-            </div>
-        </section>
-        
-        <hr class="my-12 border-t border-gray-300">
-
-        <!-- Text Analysis Tool Section -->
-        <section id="analyze" class="mb-12">
-            <h2 class="text-4xl font-extrabold text-center mb-10 text-gray-800">✍️ Text Analysis Tool</h2>
-            <div class="bg-white rounded-lg shadow-md p-8 max-w-2xl mx-auto space-y-4">
-                <p class="text-lg text-gray-700 text-center">Enter your text below to get an instant word, character, and sentence count.</p>
-                <textarea id="text-input" rows="8" placeholder="Start typing here..." class="w-full p-3 rounded-lg border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"></textarea>
-                
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
-                    <div class="bg-gray-50 p-4 rounded-lg shadow-inner">
-                        <p class="text-4xl font-bold text-indigo-600" id="word-count">0</p>
-                        <p class="text-sm text-gray-600 font-medium">Words</p>
-                    </div>
-                    <div class="bg-gray-50 p-4 rounded-lg shadow-inner">
-                        <p class="text-4xl font-bold text-indigo-600" id="char-count">0</p>
-                        <p class="text-sm text-gray-600 font-medium">Characters</p>
-                    </div>
-                    <div class="bg-gray-50 p-4 rounded-lg shadow-inner">
-                        <p class="text-4xl font-bold text-indigo-600" id="sentence-count">0</p>
-                        <p class="text-sm text-gray-600 font-medium">Sentences</p>
-                    </div>
+        <section id="gallery" class="py-12 md:py-20 bg-accent">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-2xl sm:text-3xl font-bold text-center mb-12 text-primary">Our Collection</h2>
+                <div id="photo-gallery" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Photo cards will be injected here by JavaScript -->
                 </div>
             </div>
         </section>
 
-        <hr class="my-12 border-t border-gray-300">
-
-        <!-- About Me Section -->
-        <section id="about" class="mb-12">
-            <h2 class="text-4xl font-extrabold text-center mb-10 text-gray-800">About Akshaya Selvakumar</h2>
-            <div class="bg-white rounded-lg shadow-md p-8 flex flex-col md:flex-row items-center md:items-start gap-8">
-                <div class="flex-shrink-0 w-48 h-48 rounded-full overflow-hidden shadow-lg border-4 border-indigo-600">
-                    <img src="https://placehold.co/200x200/6366F1/ffffff?text=My+Photo" alt="Akshaya Selvakumar" class="w-full h-full object-cover">
-                </div>
-                <div class="text-lg text-gray-700 space-y-4">
-                    <p>Hello! I'm Akshaya Selvakumar, a passionate creative professional with a keen eye for detail and a love for storytelling through various mediums. My journey into the world of technology and art began many years ago, driven by a desire to innovate, design, and capture the essence of moments and ideas.</p>
-                    <p>With a background as a <span class="font-bold text-gray-900">gold medalist in Computer Science</span>, I specialize in crafting robust software solutions and contributing to the open-source community. Concurrently, my artistic side flourishes through digital painting and creating unique designs for various products. I also have a deep appreciation for the natural world, expressed through my landscape photography.</p>
-                    <p>When I'm not behind the keyboard or the camera, I enjoy exploring new technologies and experimenting with different art forms. Let's connect and create something beautiful together!</p>
-                </div>
-            </div>
-        </section>
-
-        <hr class="my-12 border-t border-gray-300">
-
-        <!-- Contact Section -->
-        <section id="contact" class="mb-12">
-            <h2 class="text-4xl font-extrabold text-center mb-10 text-gray-800">Get In Touch</h2>
-            <div class="bg-white rounded-lg shadow-md p-8 max-w-lg mx-auto text-center">
-                <p class="text-lg text-gray-700 mb-4">You can reach me via email or connect on my professional profiles.</p>
-                <div class="space-y-4">
-                    <div class="flex items-center justify-center space-x-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8m-2 2a2 2 0 01-2 2H7a2 2 0 01-2-2V7a2 2 0 012-2h10a2 2 0 012 2v2z" />
+        <!-- Cart Modal -->
+        <div id="cart-modal" class="fixed inset-0 z-[100] hidden items-end justify-end modal-background">
+            <div class="bg-white w-full h-full md:w-1/3 p-6 flex flex-col rounded-t-lg shadow-lg modal overflow-y-auto">
+                <div class="flex justify-between items-center pb-4 border-b border-gray-200">
+                    <h3 class="text-xl font-semibold text-primary">Your Cart</h3>
+                    <button id="close-cart" class="p-2 rounded-full hover:bg-gray-100 transition-colors duration-200">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                         </svg>
-                        <a href="mailto:akshaya@example.com" class="text-indigo-600 hover:underline font-medium">akshayaselvakumar532@gmail.com</a>
-                    </div>
-                    <div class="flex items-center justify-center space-x-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-600" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 2C6.477 2 2 6.477 2 12c0 4.254 2.894 7.846 6.84 9.123L9 20h2v-8h-2v2h2v-2h-2V7h4v2h-2v2h2v4h-2v-2h-2v4h4v-2h2v2h-2v4h-2V12h-2v-2h2V6h-4v2h-2V6h4V4h-2V2zm-4 16c-.552 0-1-.448-1-1s.448-1 1-1 1 .448 1 1-.448 1-1 1zm8 0c-.552 0-1-.448-1-1s.448-1 1-1 1 .448 1 1-.448 1-1 1z" />
-                        </svg>
-                        <span class="text-gray-600">@your-social-media</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Cart & Checkout Modal -->
-        <div id="cart-modal" class="fixed inset-0 bg-gray-900 bg-opacity-75 z-50 hidden items-center justify-center p-4">
-            <div class="bg-white rounded-xl shadow-2xl w-full max-w-2xl p-6 relative">
-                <button id="close-modal" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800 transition-colors">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
-                <h3 class="text-2xl font-bold mb-6 text-gray-800">Your Shopping Cart</h3>
-                
-                <!-- Store Closed Message -->
-                <div id="closed-message" class="text-center py-10 hidden">
-                    <p class="text-2xl text-red-500 font-bold mb-4">Sorry, our store is closed right now.</p>
-                    <p class="text-gray-600">Please visit us between 6:00 AM and 10:00 PM IST.</p>
+                    </button>
                 </div>
 
-                <div id="cart-content-wrapper">
-                    <div id="cart-items-list" class="scrollable-cart mb-6">
-                        <p id="empty-cart-message" class="text-gray-500 italic">Your cart is empty.</p>
+                <div id="cart-items" class="flex-grow my-4 space-y-4">
+                    <!-- Cart items will be added here -->
+                    <p id="empty-cart-message" class="text-center text-gray-500">Your cart is empty.</p>
+                </div>
+
+                <div id="discount-message" class="bg-yellow-100 text-yellow-800 p-3 rounded-lg text-sm text-center font-medium my-4 hidden">
+                    <!-- Discount message will be added here -->
+                </div>
+
+                <div class="border-t border-gray-200 pt-4">
+                    <div class="flex justify-between font-semibold text-lg text-primary">
+                        <span>Total:</span>
+                        <span id="cart-total">$0.00</span>
                     </div>
-                    <div id="cart-summary" class="border-t border-gray-200 pt-4 space-y-2 text-right">
-                        <p class="text-lg font-semibold text-gray-700">Subtotal: <span id="subtotal" class="font-bold">$0.00</span></p>
-                        <p class="text-sm text-gray-500">Discount (10% on 10+): <span id="discount" class="font-bold text-green-600">$0.00</span></p>
-                        <p class="text-2xl font-bold text-gray-800">Total: <span id="total-price">$0.00</span></p>
+                    <div class="mt-4">
+                        <label for="payment-method" class="block text-sm font-medium text-gray-700">Payment Method:</label>
+                        <select id="payment-method" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                            <option value="PayPal">PayPal</option>
+                            <option value="Google Pay">Google Pay</option>
+                        </select>
                     </div>
-                    <div class="mt-8 space-y-4">
-                        <button id="checkout-btn" class="w-full bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors shadow-md">Proceed to Checkout</button>
-                        <div id="payment-options" class="hidden text-center space-y-4">
-                            <h4 class="text-xl font-semibold mb-4">Choose Your Payment Method</h4>
-                            <a id="paypal-btn" href="https://paypal.me/akshayavoryx" target="_blank" class="payment-method-link w-full bg-blue-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors shadow-md">Pay with PayPal</a>
-                            <a id="gpay-btn" href="https://pay.google.com/" target="_blank" class="payment-method-link w-full bg-green-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-green-700 transition-colors shadow-md">Pay with Google Pay</a>
-                            <div class="bg-gray-100 p-4 rounded-lg shadow-inner">
-                                <!--<p class="font-semibold text-gray-800 mb-2">Direct Bank Transfer</p>
-                                <p class="text-sm">Account Name: PhotoVerse Holdings</p>
-                                <p class="text-sm">Bank: Global Bank Inc.</p>
-                                <p class="text-sm mb-2" id="bank-account-number">Account Number: 1234 5678 9012 3456</p>
-                                <button id="copy-bank-details" class="text-indigo-600 hover:text-indigo-800 text-sm font-medium transition-colors">-->
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block -mt-1 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1.5M14 8a2 2 0 012-2h2a2 2 0 012 2v8a2 2 0 01-2 2h-2a2 2 0 01-2-2V8z" />
-                                    </svg>
-                                    Cryptocurrency Payment also available 
-                                </button>
-                                <p id="copy-message" class="text-xs text-green-600 mt-2 hidden">Copied to clipboard!</p>
-                            </div>
-                        </div>
-                        <div id="upload-section" class="hidden text-center space-y-4">
-                            <h4 class="text-xl font-semibold mb-2">Upload Payment Screenshot</h4>
-                            <p class="text-gray-700 mb-4">Please upload a screenshot of your successful payment to receive your download links.</p>
-                            <div class="flex flex-col items-center space-y-4">
-                                <input type="file" id="payment-screenshot" accept="image/*" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
-                                <button id="submit-screenshot-btn" class="w-full bg-green-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-green-700 transition-colors shadow-md">Submit</button>
-                            </div>
-                            <p id="upload-message" class="text-sm text-red-500 mt-2 hidden">Please select a file to upload.</p>
-                        </div>
-                        <div id="download-section" class="hidden mt-8 text-center space-y-4">
-                            <h4 class="text-xl font-semibold mb-4 text-green-600">Your purchase is complete!</h4>
-                            <p class="text-gray-700">Download your photos below:</p>
-                            <div id="download-list" class="space-y-3 text-left max-h-48 overflow-y-auto">
-                                <!-- Download links will be added here -->
-                            </div>
-                            <button onclick="window.location.reload();" class="mt-4 w-full bg-gray-500 text-white font-bold py-3 px-6 rounded-lg hover:bg-gray-600 transition-colors shadow-md">Start New Purchase</button>
-                        </div>
+                    <div class="mt-4">
+                        <label for="payment-option" class="block text-sm font-medium text-gray-700">Payment Option:</label>
+                        <select id="payment-option" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                            <option value="Full">Pay Full</option>
+                            <option value="Half">Pay Half</option>
+                        </select>
                     </div>
+                    <button id="proceed-to-order" class="mt-6 w-full bg-primary text-white font-bold py-3 px-4 rounded-lg hover:bg-opacity-90 transition-all duration-200">
+                        Proceed to Order
+                    </button>
+                    <p class="text-center text-xs mt-2 text-gray-500">You will be redirected to a secure payment form to finalize your order.</p>
                 </div>
             </div>
         </div>
+
+        <!-- Order Form Modal -->
+        <div id="order-form-modal" class="fixed inset-0 z-[101] hidden items-center justify-center modal-background p-4">
+            <div class="bg-white w-full max-w-lg p-6 flex flex-col rounded-lg shadow-lg modal overflow-y-auto transform scale-95 md:scale-100">
+                <!-- Payment instructions and then form -->
+                <div id="payment-instructions" class="">
+                    <div class="flex justify-between items-center pb-4 border-b border-gray-200 mb-4">
+                        <h3 class="text-xl font-semibold text-primary">Make Your Payment</h3>
+                        <button id="close-order-form" class="p-2 rounded-full hover:bg-gray-100 transition-colors duration-200">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+                    
+                    <div class="mb-4 p-4 bg-gray-100 rounded-lg">
+                        <h4 class="font-semibold text-lg text-primary mb-2">Order Summary</h4>
+                        <div id="payment-summary" class="text-sm space-y-1 text-gray-700">
+                            <!-- Payment summary injected here -->
+                        </div>
+                    </div>
+                    
+                    <div class="text-center my-6">
+                        <h4 class="font-semibold text-xl text-gray-800">Complete your payment manually:</h4>
+                        <p class="mt-2 text-gray-600">Please use the payment details below to send the exact amount.</p>
+                        
+                        <!-- Placeholder for payment details -->
+                        <div id="payment-details-placeholder" class="mt-4 p-4 rounded-lg bg-white border border-gray-200 shadow-inner">
+                            <img src="https://placehold.co/200x200/e2e8f0/4a5568?text=QR+Code" alt="Payment QR Code" class="mx-auto my-4 rounded-lg shadow-md">
+                            <p class="font-bold text-lg">Google Pay ID: your.gpay@upi</p>
+                            <p class="text-sm text-gray-500">
+                                Scan the QR code or enter the ID above to pay.
+                            </p>
+                        </div>
+                        
+                        <p class="mt-4 text-sm text-red-500 font-medium">
+                            <strong class="text-red-700">Important:</strong> Make sure to save a screenshot of your payment confirmation.
+                        </p>
+                    </div>
+
+                    <button id="continue-to-form-btn" class="mt-6 w-full bg-primary text-white font-bold py-3 px-4 rounded-lg hover:bg-opacity-90 transition-all duration-200">
+                        Continue to Finalize Order
+                    </button>
+                </div>
+                
+                <!-- Order Form - Hidden initially -->
+                <div id="order-form-container" class="hidden">
+                    <div class="flex justify-between items-center pb-4 border-b border-gray-200 mb-4">
+                        <h3 class="text-xl font-semibold text-primary">Finalize Your Order</h3>
+                        <button id="back-to-payment-btn" class="p-2 rounded-full hover:bg-gray-100 transition-colors duration-200">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-500 transform rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                            </svg>
+                        </button>
+                    </div>
+                    <form id="order-form" action="https://formspree.io/f/xeooydzk" method="POST" enctype="multipart/form-data">
+                        <div class="mb-4">
+                            <label for="name" class="block text-sm font-medium text-gray-700">Full Name</label>
+                            <input type="text" id="name" name="name" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                        </div>
+                        <div class="mb-4">
+                            <label for="email" class="block text-sm font-medium text-gray-700">Email Address</label>
+                            <input type="email" id="email" name="email" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                        </div>
+                        <div class="mb-4">
+                            <label for="phone" class="block text-sm font-medium text-gray-700">Phone Number (Optional)</label>
+                            <input type="tel" id="phone" name="phone" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                        </div>
+                        <div class="mb-4">
+                            <label for="payment_screenshot" class="block text-sm font-medium text-gray-700">Upload Payment Screenshot</label>
+                            <input type="file" id="payment_screenshot" name="payment_screenshot" accept="image/*" required class="mt-1 block w-full text-gray-700">
+                        </div>
+                        
+                        <!-- Hidden fields to pass order data -->
+                        <input type="hidden" name="photos_ordered" id="photos_ordered_input">
+                        <input type="hidden" name="amount_to_pay" id="amount_to_pay_input">
+                        <input type="hidden" name="payment_method" id="payment_method_input">
+                        <input type="hidden" name="payment_option" id="payment_option_input">
+                        
+                        <div class="flex items-center justify-center mt-6">
+                            <button type="submit" id="submit-order-btn" class="w-full bg-primary text-white font-bold py-3 px-4 rounded-lg hover:bg-opacity-90 transition-all duration-200 flex items-center justify-center">
+                                <span id="submit-text">Confirm & Pay</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- Order Confirmed Message -->
+                <div id="confirmation-message" class="text-center p-6 hidden">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-24 w-24 mx-auto text-green-500 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <h1 class="mt-4 text-3xl font-bold text-primary">Order Confirmed!</h1>
+                    <p class="mt-2 text-gray-600">
+                        Thank you for your purchase. We have received your order details and payment screenshot.
+                    </p>
+                    <p class="mt-6 text-lg font-medium text-green-700">
+                        Your high-definition digital photos will be delivered to your email within 24 hours.
+                    </p>
+                    <button id="close-confirmation" class="mt-8 inline-block bg-primary text-white font-bold py-3 px-8 rounded-full hover:bg-opacity-90 transition-all duration-200">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+
     </main>
 
-    <!-- Footer Section -->
-    <footer class="bg-gray-800 text-white py-8 mt-12">
-        <div class="container text-center">
-            <p>&copy; 2025 PhotoVerse. All rights reserved.</p>
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 py-8">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p>&copy; 2025 Akshaya's Digital Photos. All Rights Reserved.</p>
         </div>
     </footer>
 
-    <!-- Custom Message Box -->
-    <div id="message-box-overlay" class="fixed inset-0 bg-gray-900 bg-opacity-75 z-50 hidden">
-        <div id="message-box" class="message-box hidden">
-            <p id="message-text" class="text-lg mb-4"></p>
-            <button id="message-box-ok-btn" class="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 transition-colors">OK</button>
-        </div>
-    </div>
+    <script>
+        // Data for photos
+        const photos = [
+            { id: 'p1', name: 'Golden Hour', price: 12, type: 'standard', image: 'https://images.unsplash.com/photo-1510525287610-d9d1ae7431e7?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+            { id: 'p2', name: 'Mountain Peak', price: 12, type: 'standard', image: 'https://images.unsplash.com/photo-1546747551-5b72e519c1e7?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+            { id: 'p3', name: 'Forest Path', price: 12, type: 'standard', image: 'https://images.unsplash.com/photo-1534067981329-87a718d05c31?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+            { id: 'p4', name: 'Ocean Waves', price: 12, type: 'standard', image: 'https://images.unsplash.com/photo-1457198754402-e25f822ac287?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+            { id: 'p5', name: 'Cosmic Dust', price: 25, type: 'premium', image: 'https://images.unsplash.com/photo-1462331940025-496dfceff558?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+            { id: 'p6', name: 'Nebula', price: 25, type: 'premium', image: 'https://images.unsplash.com/photo-1596791242131-0731f8582d07?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+            { id: 'p7', name: 'Urban Glow', price: 12, type: 'standard', image: 'https://images.unsplash.com/photo-1502677271457-37b4260d287d?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+            { id: 'p8', name: 'Cherry Blossoms', price: 12, type: 'standard', image: 'https://images.unsplash.com/photo-1533089352601-e6e7d6928e3b?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+            { id: 'p9', name: 'Desert Stars', price: 25, type: 'premium', image: 'https://images.unsplash.com/photo-1510257321683-16ce948c2690?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+            { id: 'p10', name: 'Abstract Lines', price: 12, type: 'standard', image: 'https://images.unsplash.com/photo-1472851965581-285628b031ae?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+            { id: 'p11', name: 'Rainy Street', price: 12, type: 'standard', image: 'https://images.unsplash.com/photo-1498335754026-66ac2999e5ca?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+            { id: 'p12', name: 'City at Night', price: 25, type: 'premium', image: 'https://images.unsplash.com/photo-1502759683141-8a9d19a4e235?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+            { id: 'p13', name: 'Aurora Borealis', price: 25, type: 'premium', image: 'https://images.unsplash.com/photo-1549419134-8c430e529a73?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' }
+        ];
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, addDoc, onSnapshot, collection, setDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-        import { setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-        
-        // Use the provided global variables
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-        const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
-        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : '';
-        
-        // Initialize Firebase
-        let app = null;
-        let db = null;
-        let auth = null;
-        let userId = null;
-        let currentOrderDocRef = null;
+        // Global state for the cart
+        let cart = [];
 
-        // Function to initialize Firebase
-        async function initializeFirebase() {
-            try {
-                app = initializeApp(firebaseConfig);
-                db = getFirestore(app);
-                auth = getAuth(app);
-                setLogLevel('Debug');
-                
-                if (initialAuthToken) {
-                    await signInWithCustomToken(auth, initialAuthToken);
-                } else {
-                    await signInAnonymously(auth);
-                }
-                
-                userId = auth.currentUser.uid;
-                document.getElementById('user-id').textContent = `User ID: ${userId}`;
-                console.log("Firebase initialized successfully with user ID:", userId);
-            } catch (error) {
-                console.error("Firebase initialization failed:", error);
+        // DOM Elements
+        const photoGallery = document.getElementById('photo-gallery');
+        const cartButton = document.getElementById('cart-button');
+        const cartModal = document.getElementById('cart-modal');
+        const closeCartButton = document.getElementById('close-cart');
+        const cartCountSpan = document.getElementById('cart-count');
+        const cartItemsDiv = document.getElementById('cart-items');
+        const cartTotalSpan = document.getElementById('cart-total');
+        const discountMessageDiv = document.getElementById('discount-message');
+        const emptyCartMessage = document.getElementById('empty-cart-message');
+        const proceedToOrderBtn = document.getElementById('proceed-to-order');
+        
+        // New DOM elements for the order form
+        const orderFormModal = document.getElementById('order-form-modal');
+        const closeOrderFormBtn = document.getElementById('close-order-form');
+        const orderForm = document.getElementById('order-form');
+        const paymentSummaryDiv = document.getElementById('payment-summary');
+        const orderFormContainer = document.getElementById('order-form-container');
+        const paymentInstructions = document.getElementById('payment-instructions');
+        const continueToFormBtn = document.getElementById('continue-to-form-btn');
+        const confirmationMessageDiv = document.getElementById('confirmation-message');
+        const closeConfirmationBtn = document.getElementById('close-confirmation');
+        const backToPaymentBtn = document.getElementById('back-to-payment-btn');
+
+
+        // Function to render the photo gallery
+        function renderGallery() {
+            photoGallery.innerHTML = '';
+            photos.forEach(photo => {
+                const photoCard = document.createElement('div');
+                photoCard.className = 'photo-card bg-white rounded-lg shadow-md overflow-hidden flex flex-col items-center p-4';
+                photoCard.innerHTML = `
+                    <div class="w-full h-48 sm:h-64 overflow-hidden rounded-lg mb-4">
+                        <img src="${photo.image}" alt="${photo.name}" class="w-full h-full object-cover transition-transform duration-300 hover:scale-110">
+                    </div>
+                    <div class="w-full text-center">
+                        <h3 class="text-lg font-semibold text-primary">${photo.name}</h3>
+                        <p class="text-sm font-medium text-gray-500 mb-2">${photo.type === 'premium' ? '$25.00 (Premium)' : '$12.00'}</p>
+                        <button class="add-to-cart-btn mt-2 bg-primary text-white font-bold py-2 px-4 rounded-full hover:bg-opacity-90 transition-all duration-200" data-id="${photo.id}">Add to Cart</button>
+                    </div>
+                `;
+                photoGallery.appendChild(photoCard);
+            });
+            // Add event listeners after rendering
+            document.querySelectorAll('.add-to-cart-btn').forEach(button => {
+                button.addEventListener('click', addToCart);
+            });
+        }
+
+        // Function to add a photo to the cart
+        function addToCart(event) {
+            const photoId = event.target.dataset.id;
+            const photoToAdd = photos.find(p => p.id === photoId);
+            if (photoToAdd) {
+                cart.push(photoToAdd);
+                updateCartUI();
             }
         }
 
-        document.addEventListener('DOMContentLoaded', async () => {
-            await initializeFirebase();
-            const photos = [
-                { id: 1, title: 'Golden Hour Mountain', price: 10, isPremium: false },
-                { id: 2, title: 'Mystic Forest Path', price: 25, isPremium: true },
-                { id: 3, title: 'Urban Cityscape Night', price: 10, isPremium: false },
-                { id: 4, title: 'Coastal Sunset', price: 10, isPremium: false },
-                { id: 5, title: 'Serene Lake Reflection', price: 25, isPremium: true },
-                { id: 6, title: 'Vintage Car in Alley', price: 10, isPremium: false },
-                { id: 7, title: 'Autumn Leaves', price: 10, isPremium: false },
-                { id: 8, title: 'Abstract Light Trails', price: 25, isPremium: true },
-                { id: 9, title: 'Desert Sand Dunes', price: 10, isPremium: false },
-                { id: 10, title: 'Northern Lights', price: 25, isPremium: true },
-                { id: 11, title: 'Ocean Waves', price: 10, isPremium: false },
-                { id: 12, title: 'Snowy Forest', price: 10, isPremium: false },
-                { id: 13, title: 'Street Art', price: 10, isPremium: false },
-                { id: 14, title: 'Desert Star Trails', price: 25, isPremium: true },
-                { id: 15, title: 'Macro Water Drop', price: 10, isPremium: false },
-                { id: 16, title: 'Industrial Warehouse', price: 10, isPremium: false },
-            ];
+        // Function to remove a photo from the cart
+        function removeFromCart(event) {
+            const photoId = event.target.dataset.id;
+            const index = cart.findIndex(p => p.id === photoId);
+            if (index > -1) {
+                cart.splice(index, 1);
+                updateCartUI();
+            }
+        }
 
-            const photoGrid = document.getElementById('photo-grid');
-            const cartButton = document.getElementById('cart-button');
-            const cartModal = document.getElementById('cart-modal');
-            const closeModalButton = document.getElementById('close-modal');
-            const cartCountElement = document.getElementById('cart-count');
-            const cartItemsList = document.getElementById('cart-items-list');
-            const subtotalElement = document.getElementById('subtotal');
-            const discountElement = document.getElementById('discount');
-            const totalElement = document.getElementById('total-price');
-            const checkoutBtn = document.getElementById('checkout-btn');
-            const paymentOptions = document.getElementById('payment-options');
-            const copyBankDetailsBtn = document.getElementById('copy-bank-details');
-            const copyMessage = document.getElementById('copy-message');
-            const downloadSection = document.getElementById('download-section');
-            const downloadList = document.getElementById('download-list');
-            const closedMessage = document.getElementById('closed-message');
-            const cartContentWrapper = document.getElementById('cart-content-wrapper');
-            const uploadSection = document.getElementById('upload-section');
-            const submitScreenshotBtn = document.getElementById('submit-screenshot-btn');
-            const paymentScreenshotInput = document.getElementById('payment-screenshot');
-            const uploadMessage = document.getElementById('upload-message');
-            const messageBoxOverlay = document.getElementById('message-box-overlay');
-            const messageBox = document.getElementById('message-box');
-            const messageText = document.getElementById('message-text');
-            const messageBoxOkBtn = document.getElementById('message-box-ok-btn');
-            const textInput = document.getElementById('text-input');
-            const wordCountEl = document.getElementById('word-count');
-            const charCountEl = document.getElementById('char-count');
-            const sentenceCountEl = document.getElementById('sentence-count');
+        // Function to calculate total price and apply discounts
+        function calculateTotal() {
+            let subtotal = cart.reduce((sum, photo) => sum + photo.price, 0);
+            let discount = 0;
+            let discountMessage = '';
 
-            let cart = [];
-            
-            // Function to show a custom message box
-            function showMessageBox(message) {
-                messageText.textContent = message;
-                messageBoxOverlay.classList.remove('hidden');
-                messageBox.classList.remove('hidden');
+            if (cart.length >= 12) {
+                discount = subtotal * 0.15;
+                discountMessage = `Congratulations! You've received a 15% discount for ordering 12 or more photos.`;
+            } else if (cart.length >= 5) {
+                discount = subtotal * 0.10;
+                discountMessage = `You've unlocked a 10% discount! Buy ${12 - cart.length} more photos for a 15% discount.`;
             }
 
-            // Function to close the custom message box
-            messageBoxOkBtn.addEventListener('click', () => {
-                messageBoxOverlay.classList.add('hidden');
-                messageBox.classList.add('hidden');
-            });
+            const total = subtotal - discount;
 
-            // Function to check if the store is open
-            function isStoreOpen() {
-                const now = new Date();
-                const offsetIST = 5.5 * 60 * 60 * 1000; // 5.5 hours in milliseconds
-                const nowIST = new Date(now.getTime() + offsetIST);
-                const hoursIST = nowIST.getUTCHours();
-                return hoursIST >= 6 && hoursIST < 22; // 6 AM to 10 PM IST
-            }
+            return { total, subtotal, discount, discountMessage };
+        }
 
-            // Function to render photo cards
-            function renderPhotos() {
-                photoGrid.innerHTML = '';
-                photos.forEach(photo => {
-                    const photoCard = document.createElement('div');
-                    photoCard.className = 'card bg-white rounded-lg shadow-md overflow-hidden flex flex-col justify-between';
-                    const unsplashUrl = `https://source.unsplash.com/random/600x400/?${photo.title.toLowerCase().replace(/\s/g, '-')}`;
-                    
-                    photoCard.innerHTML = `
-                        <div class="relative w-full h-48 overflow-hidden">
-                            <img src="${unsplashUrl}" alt="${photo.title}" class="w-full h-full object-cover">
-                            <div class="text-overlay">Akshaya Voryx CEO</div>
-                        </div>
-                        <div class="p-4">
-                            <h3 class="font-bold text-lg mb-1">${photo.title}</h3>
-                            ${photo.isPremium ? '<span class="bg-yellow-400 text-yellow-800 text-xs font-semibold px-2 py-1 rounded-full">Premium</span>' : ''}
-                        </div>
-                        <div class="p-4 flex items-center justify-between border-t border-gray-200">
-                            <span class="text-2xl font-bold text-gray-800">$${photo.price}</span>
-                            <button data-id="${photo.id}" class="add-to-cart-btn bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-indigo-700 transition-colors">Add to Cart</button>
-                        </div>
-                    `;
-                    photoGrid.appendChild(photoCard);
-                });
-            }
+        // Function to update the cart UI
+        function updateCartUI() {
+            cartCountSpan.textContent = cart.length;
+            cartItemsDiv.innerHTML = '';
 
-            // Function to update the cart display
-            function updateCartDisplay() {
-                const emptyCartMessage = document.getElementById('empty-cart-message');
+            if (cart.length === 0) {
+                emptyCartMessage.classList.remove('hidden');
+                proceedToOrderBtn.disabled = true;
+                proceedToOrderBtn.classList.add('opacity-50', 'cursor-not-allowed');
+                discountMessageDiv.classList.add('hidden');
+            } else {
+                emptyCartMessage.classList.add('hidden');
+                proceedToOrderBtn.disabled = false;
+                proceedToOrderBtn.classList.remove('opacity-50', 'cursor-not-allowed');
                 
-                const existingItems = cartItemsList.querySelectorAll('div.flex.justify-between');
-                existingItems.forEach(item => item.remove());
-
-                if (cart.length === 0) {
-                    emptyCartMessage.classList.remove('hidden');
-                } else {
-                    emptyCartMessage.classList.add('hidden');
-                    cart.forEach(item => {
-                        const cartItem = document.createElement('div');
-                        cartItem.className = 'flex justify-between items-center mb-2 p-3 bg-gray-50 rounded-lg';
-                        cartItem.innerHTML = `
-                            <p class="font-medium">${item.title}</p>
-                            <p class="text-gray-600">$${item.price.toFixed(2)}</p>
-                        `;
-                        cartItemsList.appendChild(cartItem);
-                    });
-                }
-            }
-
-            // Function to calculate total and apply discount
-            function calculateTotal() {
-                let subtotal = cart.reduce((sum, item) => sum + item.price, 0);
-                let discount = 0;
-                if (cart.length >= 10) {
-                    discount = subtotal * 0.10;
-                }
-                let total = subtotal - discount;
-
-                subtotalElement.textContent = `$${subtotal.toFixed(2)}`;
-                discountElement.textContent = `-$${discount.toFixed(2)}`;
-                totalElement.textContent = `$${total.toFixed(2)}`;
-                cartCountElement.textContent = cart.length;
-            }
-
-            // Function to show the download section based on the order
-            function showDownloadSection(items) {
-                downloadSection.classList.remove('hidden');
-                paymentOptions.classList.add('hidden');
-                uploadSection.classList.add('hidden');
-                downloadList.innerHTML = '';
-                items.forEach(item => {
-                    const downloadItem = document.createElement('div');
-                    downloadItem.className = 'flex items-center justify-between bg-white rounded-lg shadow-sm p-3 border border-gray-200';
-                    const downloadUrl = `https://source.unsplash.com/random/1200x800/?${item.title.toLowerCase().replace(/\s/g, '-')}`;
-                    downloadItem.innerHTML = `
-                        <p class="font-medium text-gray-800">${item.title}</p>
-                        <a href="${downloadUrl}" download="${item.title.replace(/\s/g, '-')}.jpg" class="bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-indigo-700 transition-colors">Download</a>
+                cart.forEach(photo => {
+                    const cartItem = document.createElement('div');
+                    cartItem.className = 'flex items-center justify-between p-3 bg-gray-100 rounded-lg shadow-sm';
+                    cartItem.innerHTML = `
+                        <div class="flex items-center space-x-4">
+                            <img src="${photo.image}" alt="${photo.name}" class="w-12 h-12 object-cover rounded-md">
+                            <div>
+                                <h4 class="font-semibold text-primary">${photo.name}</h4>
+                                <p class="text-sm text-gray-600">$${photo.price.toFixed(2)}</p>
+                            </div>
+                        </div>
+                        <button class="remove-from-cart-btn text-red-500 hover:text-red-700 transition-colors duration-200" data-id="${photo.id}">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.035 21H7.965a2 2 0 01-1.996-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                            </svg>
+                        </button>
                     `;
-                    downloadList.appendChild(downloadItem);
+                    cartItemsDiv.appendChild(cartItem);
                 });
-                cart = [];
-                calculateTotal();
+                document.querySelectorAll('.remove-from-cart-btn').forEach(button => {
+                    button.addEventListener('click', removeFromCart);
+                });
             }
 
-            // Text Analysis logic
-            textInput.addEventListener('input', () => {
-                const text = textInput.value;
-                const words = text.match(/\b\w+\b/g) || [];
-                const sentences = text.split(/[.!?]+/).filter(Boolean);
-                
-                wordCountEl.textContent = words.length;
-                charCountEl.textContent = text.length;
-                sentenceCountEl.textContent = sentences.length;
-            });
+            const { total, subtotal, discount, discountMessage } = calculateTotal();
+            cartTotalSpan.textContent = `$${total.toFixed(2)}`;
+            if (discount > 0) {
+                discountMessageDiv.innerHTML = `Subtotal: $${subtotal.toFixed(2)} | Discount: $${discount.toFixed(2)}<br>${discountMessage}`;
+                discountMessageDiv.classList.remove('hidden');
+            } else {
+                discountMessageDiv.classList.add('hidden');
+            }
+        }
 
-            // Event listener for "Add to Cart" buttons
-            photoGrid.addEventListener('click', (e) => {
-                if (e.target.classList.contains('add-to-cart-btn')) {
-                    if (!isStoreOpen()) {
-                        cartModal.style.display = 'flex';
-                        cartContentWrapper.classList.add('hidden');
-                        closedMessage.classList.remove('hidden');
-                        return;
-                    }
-
-                    const photoId = parseInt(e.target.dataset.id);
-                    const photoToAdd = photos.find(photo => photo.id === photoId);
-                    
-                    const existingItem = cart.find(item => item.id === photoId);
-                    if (!existingItem) {
-                        cart.push(photoToAdd);
-                        updateCartDisplay();
-                        calculateTotal();
-                    }
-                }
-            });
-
-            // Event listener for opening the cart modal
-            cartButton.addEventListener('click', () => {
-                cartModal.style.display = 'flex';
-                paymentOptions.classList.add('hidden');
-                checkoutBtn.classList.remove('hidden');
-                uploadSection.classList.add('hidden');
-                downloadSection.classList.add('hidden');
-
-                if (isStoreOpen()) {
-                    cartContentWrapper.classList.remove('hidden');
-                    closedMessage.classList.add('hidden');
-                    updateCartDisplay();
-                } else {
-                    cartContentWrapper.classList.add('hidden');
-                    closedMessage.classList.remove('hidden');
-                }
-            });
-
-            // Event listener for closing the cart modal
-            closeModalButton.addEventListener('click', () => {
-                cartModal.style.display = 'none';
-            });
-
-            // Event listener for checkout button
-            checkoutBtn.addEventListener('click', async () => {
-                if (cart.length > 0) {
-                    const orderPayload = {
-                        items: cart,
-                        totalPrice: parseFloat(totalElement.textContent.replace('$', '')),
-                        status: 'pending',
-                        userId: userId,
-                        createdAt: new Date()
-                    };
-                    const ordersCollectionRef = collection(db, `artifacts/${appId}/users/${userId}/orders`);
-                    const docRef = await addDoc(ordersCollectionRef, orderPayload);
-                    currentOrderDocRef = doc(db, docRef.path);
-                    
-                    checkoutBtn.classList.add('hidden');
-                    paymentOptions.classList.remove('hidden');
-                } else {
-                    showMessageBox('Your cart is empty. Please add items to proceed to checkout.');
-                }
-            });
-
-            // Event listener for payment links
-            document.querySelectorAll('.payment-method-link').forEach(link => {
-                link.addEventListener('click', () => {
-                    setTimeout(() => {
-                        paymentOptions.classList.add('hidden');
-                        uploadSection.classList.remove('hidden');
-                    }, 500); 
-                });
-            });
-
-            // Event listener for submitting screenshot (simulated verification)
-            submitScreenshotBtn.addEventListener('click', async () => {
-                if (paymentScreenshotInput.files.length > 0) {
-                    uploadMessage.classList.add('hidden');
-                    if (currentOrderDocRef) {
-                        try {
-                             await setDoc(currentOrderDocRef, { status: 'completed' }, { merge: true });
-                             showDownloadSection(cart);
-                        } catch (e) {
-                            console.error("Error updating document:", e);
-                            showMessageBox('An error occurred. Please try again.');
-                        }
-                    } else {
-                        showMessageBox('No active order found. Please start the checkout process again.');
-                    }
-                } else {
-                    uploadMessage.classList.remove('hidden');
-                    showMessageBox('Please select a file to upload.');
-                }
-            });
-
-            // Event listener for copying bank details
-            copyBankDetailsBtn.addEventListener('click', () => {
-                const bankAccountNumber = document.getElementById('bank-account-number').textContent;
-                document.execCommand('copy', false, bankAccountNumber);
-                copyMessage.classList.remove('hidden');
-                setTimeout(() => {
-                    copyMessage.classList.add('hidden');
-                }, 2000);
-            });
-            
-            // Initial render
-            renderPhotos();
+        // Event listener to open/close cart modal
+        cartButton.addEventListener('click', () => {
+            cartModal.classList.remove('hidden', 'items-end');
+            cartModal.classList.add('flex');
+            setTimeout(() => {
+                cartModal.firstElementChild.classList.add('open');
+            }, 10);
         });
+
+        closeCartButton.addEventListener('click', () => {
+            cartModal.firstElementChild.classList.remove('open');
+            setTimeout(() => {
+                cartModal.classList.remove('flex');
+                cartModal.classList.add('hidden', 'items-end');
+            }, 300);
+        });
+
+        // Event listener for proceeding to order
+        proceedToOrderBtn.addEventListener('click', () => {
+            if (cart.length === 0) return;
+
+            closeCartButton.click();
+
+            orderFormModal.classList.remove('hidden');
+            setTimeout(() => {
+                orderFormModal.firstElementChild.classList.add('open');
+            }, 10);
+            
+            // Populate the payment summary and form fields
+            const { total } = calculateTotal();
+            const photoIds = cart.map(p => p.name + ' (' + p.id + ')').join(', ');
+            const paymentMethod = document.getElementById('payment-method').value;
+            const paymentOption = document.getElementById('payment-option').value;
+            const amountToPay = (paymentOption === 'Half') ? (total / 2).toFixed(2) : total.toFixed(2);
+            const totalAmount = total.toFixed(2);
+
+            paymentSummaryDiv.innerHTML = `
+                <p><strong class="text-gray-900">Photos Ordered:</strong> ${photoIds}</p>
+                <p><strong class="text-gray-900">Final Total:</strong> $${totalAmount}</p>
+                <p><strong class="text-gray-900">Payment Method:</strong> ${paymentMethod}</p>
+                <p><strong class="text-gray-900">Payment Option:</strong> ${paymentOption}</p>
+                <p><strong class="text-gray-900">Amount to Pay Now:</strong> <span class="font-bold text-lg text-green-600">$${amountToPay}</span></p>
+                <p class="text-xs mt-2 text-red-500">
+                    ${paymentOption === 'Half' ? 'A random cute photo will be delivered with your order. You will pay the remaining half after delivery.' : 'You will pay the full amount now and receive a random cute photo along with your order.'}
+                </p>
+            `;
+
+            // Set hidden form fields
+            document.getElementById('photos_ordered_input').value = photoIds;
+            document.getElementById('amount_to_pay_input').value = amountToPay;
+            document.getElementById('payment_method_input').value = paymentMethod;
+            document.getElementById('payment_option_input').value = paymentOption;
+
+            // Show payment instructions first
+            paymentInstructions.classList.remove('hidden');
+            orderFormContainer.classList.add('hidden');
+            confirmationMessageDiv.classList.add('hidden');
+        });
+
+        closeOrderFormBtn.addEventListener('click', () => {
+            orderFormModal.firstElementChild.classList.remove('open');
+            setTimeout(() => {
+                orderFormModal.classList.add('hidden');
+            }, 300);
+        });
+
+        continueToFormBtn.addEventListener('click', () => {
+            paymentInstructions.classList.add('hidden');
+            orderFormContainer.classList.remove('hidden');
+        });
+
+        backToPaymentBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            orderFormContainer.classList.add('hidden');
+            paymentInstructions.classList.remove('hidden');
+        });
+
+        // This is a simulated submission. It will not send data but will show the confirmation message.
+        orderForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // This code block runs when the form is submitted.
+            // We hide the form and show the confirmation message immediately.
+            orderFormContainer.classList.add('hidden');
+            confirmationMessageDiv.classList.remove('hidden');
+            
+            // Clear the cart for a new order
+            cart = [];
+            updateCartUI();
+        });
+        
+        closeConfirmationBtn.addEventListener('click', () => {
+            orderFormModal.classList.add('hidden');
+            // Reset form for next time
+            orderForm.reset();
+            orderFormContainer.classList.add('hidden');
+            paymentInstructions.classList.remove('hidden');
+        });
+
+        // Initial render
+        window.onload = () => {
+            renderGallery();
+            updateCartUI();
+        };
     </script>
 </body>
 </html>
